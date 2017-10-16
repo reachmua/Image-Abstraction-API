@@ -5,8 +5,11 @@
     "scripts": {
     "start": "node app.js"
   },
-  "name": "image_app",
-  "repository": "",
+  "name": "image-apstraction-api",
+    "repository": {
+    "type": "git",
+    "url": "/api/imagesearch/:searchValue"
+  },
   "version": "1.1.1",
   "dependencies": {
     "async": "~0.2.8",
