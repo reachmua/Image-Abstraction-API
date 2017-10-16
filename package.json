@@ -1,0 +1,18 @@
+{
+  "author": "Some One",
+  "description": "Image Abstraction.",
+  "main": "app.js",
+  "name": "image_app",
+  "repository": "",
+  "version": "1.1.1",
+  "dependencies": {
+    "async": "~0.2.8",
+    "body-parser": "1.17.2",
+    "bluebird": "3.0.0",
+    "cors": "2.8.4",
+    "express": "4.15.4",
+    "mongoose": "4.9.1",
+    "searchString": "1.0.0"
+    "socket.io": "~0.9.14",
+  }
+}
