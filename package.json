@@ -1,7 +1,10 @@
 {
-  "author": "Some One",
+  "author": "A Real One",
   "description": "Image Abstraction.",
   "main": "app.js",
+    "scripts": {
+    "start": "node app.js"
+  },
   "name": "image_app",
   "repository": "",
   "version": "1.1.1",
@@ -15,4 +18,8 @@
     "searchString": "1.0.0",
     "socket.io": "~0.9.14",
   },
+  "engines": {
+    "node": "4.4.5"
+  },
+  "license": "MIT"
 }
