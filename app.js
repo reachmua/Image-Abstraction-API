@@ -4,15 +4,15 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var express = require('express');
 var mongoose = require('mongoose');
-var routes = express();
+var app = express();
 var searchString = require('./node_modules/searchString');
 
 // Bing API requirement
-// Obtain an 'account key' here: azure.microsoft.com/en-us/try/cognitive-services/my-apis/
+// Obtain an account key here: azure.microsoft.com/en-us/try/cognitive-services/my-apis/
 var Bing = require('node-bing-api')({ accKey: 'your-account-key' });
 
-routes.use(bodyParser.json());
-routes.use(cors());
+app.use(bodyParser.json());
+app.use(cors());
 
 mongoose.connect('mongodb://localhost/searchString');
 
@@ -20,14 +20,24 @@ mongoose.connect('mongodb://localhost/searchString');
 mongoose.Promise = require('bluebird');
 
 // Search terms in the DB.
-routes.get('/api/searchHistory', function(req, res, next) {
+app.get('/api/searchHistory', function(req, res, next) {
     searchString.find({}, (error, data) => {
       res.json(data); 
     });
 });
 
-//Items in the DB per exercise.
-routes.get('/api/imagesearch/:searchValue', function(req, res) {
+// Making the data public.
+
+app.use('/public', express.static(process.cwd() + '/public'));
+
+app.route('/').get(function (req, res) {
+    res.sendFile(process.cwd() + '/index.html');
+    
+});
+
+// Items in the DB per exercise.
+  
+app.get('/api/imagesearch/:searchValue', function(req, res) {
     
     // Constructors
     var { searchValue } = req.params;
@@ -69,6 +79,6 @@ routes.get('/api/imagesearch/:searchValue', function(req, res) {
     
  });
 
-routes.listen(process.env.PORT || 3000, ()=>{
+app.listen(process.env.PORT || 3000, ()=>{
   console.log('App is running!');
 });
