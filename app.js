@@ -5,7 +5,7 @@ var cors = require('cors');
 var express = require('express');
 var mongoose = require('mongoose');
 var app = express();
-var searchString = require('./node_modules/searchString');
+var searchString = require('./modules/searchString');
 
 // Bing API requirement
 // Obtain an account key here: azure.microsoft.com/en-us/try/cognitive-services/my-apis/
@@ -14,7 +14,7 @@ var Bing = require('node-bing-api')({ accKey: 'your-account-key' });
 app.use(bodyParser.json());
 app.use(cors());
 
-mongoose.connect('mongodb://localhost/searchString');
+mongoose.connect(process.env.MONGO_URI ||'mongodb://localhost/searchString');
 
 // Fix Deprecation warning
 mongoose.Promise = require('bluebird');
@@ -37,7 +37,7 @@ app.route('/').get(function (req, res) {
 
 // Items in the DB per exercise.
   
-app.get('/api/imagesearch/:searchValue', function(req, res) {
+app.get('/api/imagesearch/:searchValue?', function(req, res) {
     
     // Constructors
     var { searchValue } = req.params;
