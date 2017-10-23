@@ -1,3 +1,6 @@
+// Allow Block-scoped declarations for Heroku.
+'use strict';
+
 // Base Node requirements
 
 var bodyParser = require('body-parser');
@@ -9,12 +12,12 @@ var searchString = require('./modules/searchString');
 
 // Bing API requirement
 // Obtain an account key here: azure.microsoft.com/en-us/try/cognitive-services/my-apis/
-var Bing = require('node-bing-api')({ accKey: 'your-account-key' });
+var Bing = require('node-bing-api')({ accKey: 'df51a062662b471287c21b0b13894972' });
+
+mongoose.connect(process.env.MONGO_URI ||'mongodb://localhost/searchString');
 
 app.use(bodyParser.json());
 app.use(cors());
-
-mongoose.connect(process.env.MONGO_URI ||'mongodb://localhost/searchString');
 
 // Fix Deprecation warning
 mongoose.Promise = require('bluebird');
@@ -28,16 +31,15 @@ app.get('/api/searchHistory', function(req, res, next) {
 
 // Making the data public.
 
-app.use('/public', express.static(process.cwd() + '/public'));
-
-app.route('/').get(function (req, res) {
-    res.sendFile(process.cwd() + '/index.html');
-    
+app.get('/',function(req,res){
+  res.sendFile('/index.html');
 });
+
+app.use(express.static(__dirname + "/index.html"));
 
 // Items in the DB per exercise.
   
-app.get('/api/imagesearch/:searchValue?', function(req, res) {
+app.get('/api/imagesearch/:searchValue*', function(req, res) {
     
     // Constructors
     var { searchValue } = req.params;
