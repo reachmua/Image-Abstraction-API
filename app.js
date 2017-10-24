@@ -29,16 +29,16 @@ app.get('/api/searchHistory', function(req, res, next) {
     });
 });
 
-// Making the data public.
+// HTML App Intro.
+app.use('/public', express.static(process.cwd() + '/public'));
 
-app.get('/',function(req,res){
-  res.sendFile('/index.html');
+var path = require('path');
+
+app.get('/',function(req, res){
+  res.sendFile(path.join(__dirname+'/index.html'));
 });
 
-app.use(express.static(__dirname + "/index.html"));
-
 // Items in the DB per exercise.
-  
 app.get('/api/imagesearch/:searchValue*', function(req, res) {
     
     // Constructors
