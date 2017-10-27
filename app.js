@@ -22,21 +22,21 @@ app.use(cors());
 // Fix Deprecation warning
 mongoose.Promise = require('bluebird');
 
-// Search terms in the DB.
+// Basic Html App Routing.
+// app.use(express.static('public'));
+
+// app.get("/", function (req, res) {
+//   res.sendFile(__dirname + '/index.html');
+// });
+
+// Access stored search terms in the DB.
 app.get('/api/searchHistory', function(req, res, next) {
     searchString.find({}, (error, data) => {
       res.json(data); 
     });
 });
 
-// HTML App Intro.
-app.use('/public', express.static(process.cwd() + '/public'));
 
-var path = require('path');
-
-app.get('/',function(req, res){
-  res.sendFile(path.join(__dirname+'/index.html'));
-});
 
 // Items in the DB per exercise.
 app.get('/api/imagesearch/:searchValue*', function(req, res) {
@@ -81,6 +81,6 @@ app.get('/api/imagesearch/:searchValue*', function(req, res) {
     
  });
 
-app.listen(process.env.PORT || 3000, ()=>{
+app.listen(process.env.PORT || 3000, function () {
   console.log('App is running!');
 });
