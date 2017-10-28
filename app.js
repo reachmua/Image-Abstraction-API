@@ -23,11 +23,11 @@ app.use(cors());
 mongoose.Promise = require('bluebird');
 
 // Basic Html App Routing.
-// app.use(express.static('public'));
+app.use(express.static('public'));
 
-// app.get("/", function (req, res) {
-//   res.sendFile(__dirname + '/index.html');
-// });
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
 
 // Access stored search terms in the DB.
 app.get('/api/searchHistory', function(req, res, next) {
