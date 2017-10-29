@@ -2,7 +2,7 @@
   "author": "A Real One",
   "description": "Image Abstraction.",
   "main": "app.js",
-    "scripts": {
+  "scripts": {
     "start": "node app.js"
   },
   "name": "image-apstraction-api",
@@ -23,7 +23,7 @@
     "socket.io": "^0.9.14"
   },
   "engines": {
-    "node": "4.4.5"
+    "node": "6.11.5"
   },
   "license": "MIT"
 }
