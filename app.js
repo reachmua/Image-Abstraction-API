@@ -4,8 +4,10 @@
 // Base Node requirements
 
 var bodyParser = require('body-parser');
+var connect = require('connect');
 var cors = require('cors');
 var express = require('express');
+var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var app = express();
 var searchString = require('./modules/searchString');
@@ -13,6 +15,8 @@ var searchString = require('./modules/searchString');
 // Bing API requirement
 // Obtain an account key here: azure.microsoft.com/en-us/try/cognitive-services/my-apis/
 var Bing = require('node-bing-api')({ accKey: 'df51a062662b471287c21b0b13894972' });
+
+// Connect to mLab MongoDB App. Credentials stored in Heroku Config Variables.
 
 mongoose.connect(process.env.MONGO_URI ||'mongodb://localhost/searchString');
 
@@ -23,11 +27,11 @@ app.use(cors());
 mongoose.Promise = require('bluebird');
 
 // Basic Html App Routing.
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
+// app.get("/", function (req, res) {
+//   res.sendFile(__dirname + '/index.html');
+// });
 
 // Access stored search terms in the DB.
 app.get('/api/searchHistory', function(req, res, next) {
